@@ -2,6 +2,16 @@ require 'price_rule'
 
 describe PriceRule do
 
+	describe '#percent_net_price' do
+
+		let(:rule) { PriceRule.new('orange', 2, 'percent', 75) }
+		
+		it 'calculates for percent discount on nth item' do
+			expect(rule.percent_net_price(1, 1.00)).to eq 1.75
+			expect(rule.percent_net_price(5, 0.75)).to eq 6.55
+		end
+	end
+
   describe '#apply' do
 		
 		context 'bulk discount' do

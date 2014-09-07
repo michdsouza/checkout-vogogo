@@ -28,12 +28,12 @@ describe Cart do
 		let(:pricing_rules) {
 			rules = []
 			rules << PriceRule.new('apple', 2, 'percent', 0)
-			rules << PriceRule.new('orange', 1, 'percent', 75)
+			rules << PriceRule.new('orange', 2, 'percent', 75)
 			rules
 		}
 
 		it 'returns cart total' do
-			expect(cart.total(pricing_rules)).to eq(1.25)
+			expect(cart.total(pricing_rules)).to eq(1.50)
 		end
 	end
 
