@@ -1,5 +1,18 @@
 Assumptions:
 Items are scanned one at a time
 
+Receipt invokes pricing rules at the end of product 'scanning'
+However, a running total is maintained per item scanned to give the customer an idea of what the current bill looks like as every item is scanned.
+
+Contradictory rules / Rules prioritization
+e.g. 3 apples for $1.30 (and) buy one apple, get one free.
+
+If customer scans 5 apples, do we calculate the 'bulk' rule first, and then apply 'one and one free' on the remaining 2 apples. Or the other way around?
+
+Ideally: Run both/all scenarios and pick the lowest outcome (for customer satisfaction) - or the highest outcome (for company profiteering)
+		-- Not implmented. Level 2 functionality
+Assumption: Run bulk pricing rule takes precedence always
+
+
 To do:
 Prices in $
