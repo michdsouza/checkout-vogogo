@@ -27,8 +27,8 @@ describe Cart do
 		}
 		let(:pricing_rules) {
 			rules = []
-			rules << PriceRule.new('apple', 2, 'percent', 0)
-			rules << PriceRule.new('orange', 2, 'percent', 75)
+			rules << PriceRule.new('Buy 1 apple get 1 free')
+			rules << PriceRule.new('Buy 1 orange get 1 half off')
 			rules
 		}
 

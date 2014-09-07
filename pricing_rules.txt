@@ -1,0 +1,3 @@
+3 apples cost $1.30
+Buy 1 orange get 1 free
+Buy 1 banana get 1 half off

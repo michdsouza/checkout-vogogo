@@ -1,7 +1,0 @@
----
-apple:
-	at_quantity: 2
-	rule: bogo
-orange:
-	at_quantity: 2
-	rule: bogo_half

@@ -1,20 +1,19 @@
+require_relative 'cart'
+require_relative 'price_rule'
 require_relative 'product'
-require_relative 'price_rules'
 require 'yaml'
 
+# Load product prices
 prices = YAML.load_file('prices.yml')
 
+# Load pricing rules from a file
+pricing_schemes = File.read('pricing_rules.txt')
 pricing_rules = []
-pricing_rules << PriceRule.new('apple', 3, 'fixed', 1.30)
-pricing_rules << PriceRule.new('orange', 2, 'percent', 50)
+pricing_schemes.split("\n").each { |pricing_scheme| pricing_rules << PriceRule.new(pricing_scheme) }
 
+# Start adding items to shopping cart
 cart = Cart.new
+cart.add_line_item(Product.new('apple', prices['apple'] || 0))
 
-# Initialization complete. Add products to cart.
-
-cart.add_line_item(Product.new('apple', prices['apple'] || 0)
-
-
-# Item addition complete. Calculate cart total
-
+# Calculate cart itemized list and total
 cart.total(pricing_rules)
