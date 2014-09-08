@@ -17,7 +17,7 @@ loop do
   line = Readline::readline('> ')
   break if line.nil? || line == 'quit'
   if prices[line].nil?
-		puts "We don't have this item. Try again."
+		puts "We do not have this item. Try again."
 	else
 		cart.add_line_item(Product.new(line, prices[line]))
 	end

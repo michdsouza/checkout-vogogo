@@ -19,7 +19,7 @@ Add one item at a time to the cart. Type 'quit' to complete
 > apple
 > orange
 > mango
-We don't have this item. Try again.
+We do not have this item. Try again.
 > quit
 2 apples: $1.00
 1 orange: $0.75
