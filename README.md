@@ -1,6 +1,6 @@
 ## Checkout System
 
-### This programning problem:
+### This programming problem:
 
 - Is written in Ruby
 - Has a console interface to add products to a shopping cart and get an itemized printed receipt, along with the total
@@ -24,14 +24,14 @@ We do not have this item. Try again.
 2 apples: $1.00
 1 orange: $0.75
 Total: $1.75
-```bash
+```
 
 All products must be in lower case and are assumed to be added to the shopping cart one at a time. For example, 'apples' is not a valid product whereas 'apple' is acceptable. If a product that does not exist in the pricing file, then it is not considered valid. Type 'quit' to run the itemized receipt. 
 
 ### How to run tests:
 ```bash
 rspec
-```bash
+```
 
 ### Gems used to help build this app
 - Readline (For reading products entered via the console)
