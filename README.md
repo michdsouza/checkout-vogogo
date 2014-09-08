@@ -48,6 +48,3 @@ All products must be in lower case and are assumed to be added to the shopping c
 - Would've refactored the 'rules_parser.rb' to use the strategy pattern so that all the translation of the rules do not happen in a single file, which may expand as more rule types are added
 - Would've embraced Parkinson's law: "work expands so as to fill the time available for its completion" :)
 
-### Disclaimer: 
-No animals were harmed in the making of this app.
-
