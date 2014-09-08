@@ -26,11 +26,11 @@ We do not have this item. Try again.
 Total: $1.75
 ```
 
-All products must be in lower case and are assumed to be added to the shopping cart one at a time. For example, 'apples' is not a valid product whereas 'apple' is acceptable. If a product that does not exist in the pricing file, then it is not considered valid. Type 'quit' to run the itemized receipt. 
+All products must be in lower case and are assumed to be added to the shopping cart one at a time. For example, 'apples' is not a valid product whereas 'apple' is acceptable. If a product does not exist in the pricing file, it is not considered valid. Typing 'quit' will run the itemized receipt. 
 
 ### How to run tests:
 ```bash
-rspec
+> rspec
 ```
 
 ### Gems used to help build this app
