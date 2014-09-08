@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem "rspec"
+gem "require_all"
 gem "pry"
 gem "pry-debugger"
 gem "i18n"

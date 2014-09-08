@@ -1,20 +1,16 @@
-require_relative 'cart'
-require_relative 'price_rule'
-require_relative 'product'
 require 'readline'
+require 'require_all'
 require 'yaml'
+require_all 'lib'
 
 # Load product prices
-prices = YAML.load_file('prices.yml')
+prices = YAML.load_file('./fixtures/prices.yml')
 
-# Load pricing rules from a file
-pricing_schemes = File.read('pricing_rules.txt')
-pricing_rules = []
-pricing_schemes.split("\n").each { |pricing_scheme| pricing_rules << PriceRule.new(pricing_scheme) }
-
-cart = Cart.new(pricing_rules)
+# Load pricing rules
+pricing_rules = RuleParser.ingest('./fixtures/pricing_rules.txt')
 
 # Start adding items to shopping cart
+cart = Cart.new(pricing_rules)
 puts "Add one item at a time to the cart. Type 'quit' to complete"
 
 loop do

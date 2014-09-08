@@ -2,37 +2,9 @@ require 'price_rule'
 
 describe PriceRule do
 
-	describe '#load_pricing_rule' do
-
-		it 'creates a bulk discount rule' do
-			price_rule = PriceRule.new('3 apples cost $1.30')
-			expect(price_rule.product_name).to eq 'apple'
-			expect(price_rule.at_quantity).to eq 3
-			expect(price_rule.discount_type).to eq 'bulk'
-			expect(price_rule.price_factor).to eq 1.30
-		end
-
-		it 'creates a buy one get one free discount rule' do
-			price_rule = PriceRule.new('Buy 1 orange get 1 free')
-			expect(price_rule.product_name).to eq 'orange'
-			expect(price_rule.at_quantity).to eq 2
-			expect(price_rule.discount_type).to eq 'percent'
-			expect(price_rule.price_factor).to eq 0
-		end
-
-		it 'creates a buy one get one half off discount rule' do
-			price_rule = PriceRule.new('Buy 1 banana get 1 half off')
-			expect(price_rule.product_name).to eq 'banana'
-			expect(price_rule.at_quantity).to eq 2
-			expect(price_rule.discount_type).to eq 'percent'
-			expect(price_rule.price_factor).to eq 50
-		end
-
-	end
-
 	describe '#percent_net_price' do
 
-		let(:rule) { PriceRule.new('Buy 1 orange get 1 half off') }
+		let(:rule) { PriceRule.new('orange', 2, 'percent', 50) }
 		
 		it 'calculates for percent discount on nth item' do
 			expect(rule.percent_net_price(1, 1.00)).to eq 1.50
@@ -40,10 +12,19 @@ describe PriceRule do
 		end
 	end
 
+	describe '#bulk_net_price' do
+
+		let(:rule) { PriceRule.new('apple', 3, 'bulk', 1.3) }
+		
+		it 'calculates for bulk discount' do
+			expect(rule.bulk_net_price(1)).to eq 1.30
+		end
+	end
+
   describe '#apply' do
 		
 		context 'bulk discount' do
-			let(:rule) { PriceRule.new('3 apples cost $1.30') }
+			let(:rule) { PriceRule.new('apple', 3, 'bulk', 1.3) }
 
 			it 'for single batch' do
 				applied_rule = rule.apply(3, 0.50)
@@ -65,7 +46,7 @@ describe PriceRule do
 		end		
 
 		context 'percentage discount' do
-			let(:rule) { PriceRule.new('Buy 1 orange get 1 half off') }
+			let(:rule) { PriceRule.new('orange', 2, 'percent', 50) }
 
 			it 'for single batch' do
 				applied_rule = rule.apply(2, 1.00)

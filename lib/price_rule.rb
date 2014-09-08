@@ -4,36 +4,11 @@ class PriceRule
 
 	attr_reader :product_name, :at_quantity, :discount_type, :price_factor
 
-	def initialize(pricing_scheme)
-		load_pricing_rule(pricing_scheme)
-	end
-
-	def load_pricing_rule(pricing_scheme)
-		search_terms = ['cost', 'free', 'half']
-		@pricing_scheme_parts = pricing_scheme.split
-		matching_term = @pricing_scheme_parts.select { |term| search_terms.include?(term) }.first
-		self.send("parse_for_#{matching_term}")
-	end
-
-	def parse_for_cost
-		@product_name = @pricing_scheme_parts[1].singularize
-		@at_quantity = @pricing_scheme_parts[0].to_i
-		@discount_type = 'bulk'
-		@price_factor = @pricing_scheme_parts[3].split('$')[1].to_f
-	end
-
-	def parse_for_free
-		@product_name = @pricing_scheme_parts[2].singularize
-		@at_quantity = @pricing_scheme_parts[1].to_i + 1
-		@discount_type = 'percent'
-		@price_factor = 0
-	end
-
-	def parse_for_half
-		@product_name = @pricing_scheme_parts[2].singularize
-		@at_quantity = @pricing_scheme_parts[1].to_i + 1
-		@discount_type = 'percent'
-		@price_factor = 50	
+	def initialize(product_name, at_quantity, discount_type, price_factor)
+		@product_name = product_name
+		@at_quantity = at_quantity
+		@discount_type = discount_type
+		@price_factor = price_factor
 	end
 
 	def apply(number_of_items, price)

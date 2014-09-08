@@ -1,6 +1,6 @@
 class Cart
-
 	attr_reader :total
+
 	def initialize(pricing_rules)
 		@line_items = []
 		@total = 0
@@ -11,34 +11,48 @@ class Cart
 		@line_items << product
 	end
 
+	def total_price_for(product, quantity, price_rules)
+		total_price = 0
+		remaining_quantity = quantity
+
+		price_rules.each do |rule|
+			rule_outcome = rule.apply(remaining_quantity, product.price)
+			total_price += rule_outcome[:net_price]
+			remaining_quantity = rule_outcome[:items_left]
+		end
+		total_price += remaining_quantity * product.price
+	end
+
+	#############################
+	## Print formatted outputs ##
+	#############################
+
 	def print_itemized_list
-		itemized_list = ''
+		list_items = ''
 
 		grouped_line_items = @line_items.group_by(&:name)
 		grouped_line_items.each do |name, products|
-			rules_for_product = @pricing_rules.select {|rule| rule.product_name == name}
-			product_total = calculate_price_for(products.first, products.size, rules_for_product)
-			itemized_list += "#{products.size} #{name.pluralize(products.size)}: $" + "%.2f" % product_total + "\n"
+			product_total = total_price_for(products.first, products.size, rules_for(name))
 			@total += product_total
+			list_items += format(products, product_total)			
 		end
-
-		itemized_list
+		list_items
 	end
 
 	def print_total
 		"Total: $" + "%.2f" % @total
 	end
 
-	def calculate_price_for(product, quantity, pricing_rules_for_product)
-		total_price = 0
-		remaining_quantity = quantity
+	#######
+	private
+	#######
 
-		pricing_rules_for_product.each do |rule|
-			rule_applied = rule.apply(remaining_quantity, product.price)
-			total_price += rule_applied[:net_price]
-			remaining_quantity = rule_applied[:items_left]
-		end
-		total_price += remaining_quantity * product.price
+	def rules_for(product_name)
+		@pricing_rules.select {|rule| rule.product_name == product_name}
+	end
+
+	def format(products, product_total)
+		"#{products.size} #{products.first.name.pluralize(products.size)}: $" + "%.2f" % product_total + "\n"
 	end
 
 end

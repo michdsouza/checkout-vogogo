@@ -18,3 +18,6 @@ Next level refactoring
 - parsing logic for price rule different from applying price rule
 - merely listed out prices. Not a listing of the discounts on the receipt.
 - Can scan only one item at a time
+
+How to run 
+> ruby console_app.rb
