@@ -5,12 +5,12 @@ class PriceRule
 	attr_reader :product_name, :at_quantity, :discount_type, :price_factor
 
 	def initialize(pricing_scheme)
-		@pricing_scheme_parts = pricing_scheme.split
 		load_pricing_rule(pricing_scheme)
 	end
 
 	def load_pricing_rule(pricing_scheme)
 		search_terms = ['cost', 'free', 'half']
+		@pricing_scheme_parts = pricing_scheme.split
 		matching_term = @pricing_scheme_parts.select { |term| search_terms.include?(term) }.first
 		self.send("parse_for_#{matching_term}")
 	end

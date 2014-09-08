@@ -20,6 +20,7 @@ GEM
     pry-debugger (0.2.3)
       debugger (~> 1.3)
       pry (>= 0.9.10, < 0.11.0)
+    rb-readline (0.5.1)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
@@ -42,4 +43,5 @@ DEPENDENCIES
   i18n
   pry
   pry-debugger
+  rb-readline
   rspec

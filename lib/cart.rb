@@ -1,21 +1,32 @@
 class Cart
 
-	def initialize
+	attr_reader :total
+	def initialize(pricing_rules)
 		@line_items = []
+		@total = 0
+		@pricing_rules = pricing_rules
 	end
 
 	def add_line_item(product)
 		@line_items << product
 	end
 
-	def total(pricing_rules)
-		grouped_hash = @line_items.group_by(&:name)
-		total = 0
-		grouped_hash.each do |k,v|
-			rules_for_product = pricing_rules.select {|rule| rule.product_name == k}
-			total += calculate_price_for(v.first, v.size, rules_for_product)
+	def print_itemized_list
+		itemized_list = ''
+
+		grouped_line_items = @line_items.group_by(&:name)
+		grouped_line_items.each do |name, products|
+			rules_for_product = @pricing_rules.select {|rule| rule.product_name == name}
+			product_total = calculate_price_for(products.first, products.size, rules_for_product)
+			itemized_list += "#{products.size} #{name.pluralize(products.size)}: $" + "%.2f" % product_total + "\n"
+			@total += product_total
 		end
-		total
+
+		itemized_list
+	end
+
+	def print_total
+		"Total: $" + "%.2f" % @total
 	end
 
 	def calculate_price_for(product, quantity, pricing_rules_for_product)
